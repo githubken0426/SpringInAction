@@ -79,7 +79,7 @@ public class OneManBand implements Performer {
 	
 	public void iteratorMap(){
 		System.out.println();
-		System.out.println("便利Map：");
+		System.out.println("遍历Map：");
 		for (String key : map.keySet()) {
 			System.out.println(key);
 			map.get(key).play();
@@ -88,13 +88,13 @@ public class OneManBand implements Performer {
 	
 	public void iteratorProperties(){
 		System.out.println();
-		System.out.println("便利Properties：");
+		System.out.println("遍历Properties：");
 		System.out.println(prototype);
 	}
 	
 	public void iteratorMapStr(){
 		System.out.println();
-		System.out.println("便利mapStr：");
+		System.out.println("遍历mapStr：");
 		System.out.println(mapStr);
 	}
 }

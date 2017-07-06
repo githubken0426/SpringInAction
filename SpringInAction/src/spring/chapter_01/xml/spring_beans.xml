@@ -41,13 +41,10 @@
         <!-- 声明一个aop 
         	advisor只持有一个Pointcut和一个advice，而aspect可以多个pointcut和多个advice
         	<aop:advisor advice-ref=""/>
-        
         <bean id="mistrel" class="spring.chapter_01.bean.Mistrel"/>
-        
         <aop:config>
         	<aop:aspect ref="mistrel">
         		<aop:pointcut expression="execution(* spring.chapter_01.service..*.*(..))" id="embark"/>
-        		
         		<aop:before pointcut-ref="embark" method="singBeforeQuest" />
         		<aop:after pointcut-ref="embark" method="singAfterQuest" />
         	</aop:aspect>

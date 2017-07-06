@@ -28,8 +28,10 @@ public class Test {
 			return pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			conn.rollback();
 		} finally {
 			pstmt.close();
+			conn.commit();
 			conn.close();
 		}
 		return 0;

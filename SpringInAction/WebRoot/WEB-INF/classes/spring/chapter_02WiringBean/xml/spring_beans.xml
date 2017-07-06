@@ -77,14 +77,14 @@
       		<!-- 装配Properties集合(当Map的key和value都为String类型，可以使用java.util.Properties代替) -->
       		<property name="prototype">
       			<props>
-      				<prop key="Properties-Guitar:">guitar-value</prop>
+      				<prop key="Properties-Guitar">guitar-value</prop>
       				<prop key="Properties-Cymbal">cymbal-value</prop>
       			</props>
       		</property>
       		
       		<property name="mapStr">
       			<props>
-      				<prop key="Map-Guitar:">guitar-value</prop>
+      				<prop key="Map-Guitar">guitar-value</prop>
       				<prop key="Map-Cymbal">cymbal-value</prop>
       			</props>
       		</property>
