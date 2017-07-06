@@ -4,16 +4,17 @@ import spring.chapter_01.service.Knight;
 
 
 
-public class KnightAction {
+public class ConstructorKnightAction {
 	/**
-	 * 注入Knight
+	 * constructor注入
 	 */
 	private Knight knight;
-	public KnightAction(Knight knight){
+	public ConstructorKnightAction(Knight knight){
 		this.knight =knight;
 	}
 	
 	public void doSomething(){
+		System.out.println("constructor 注入");
 		knight.embarkOnQuest();
 	}
 }

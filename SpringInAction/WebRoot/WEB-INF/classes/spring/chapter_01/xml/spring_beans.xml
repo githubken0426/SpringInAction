@@ -4,6 +4,7 @@
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:p="http://www.springframework.org/schema/p"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
            http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
            http://www.springframework.org/schema/aop 
@@ -13,22 +14,27 @@
            http://www.springframework.org/schema/context
            http://www.springframework.org/schema/context/spring-context-3.0.xsd">
            
-         <!-- 创建quest -->
+         <!-- 注册quest -->
         <bean id="quest" class="spring.chapter_01.bean.Quest"/>
-         <!-- 构造器注入quest -->
+        
+        <!-- 构造器注入 redCrossKnight index构造器参数占位符-->
+        <bean id="redKnightAction" class="spring.chapter_01.action.ConstructorKnightAction">
+        	<constructor-arg ref="redCrossKnight" index="0"></constructor-arg>
+        </bean>
+        <!-- set注入 -->
+         <bean id="setRedKnightAction" class="spring.chapter_01.action.SetKnightAction">
+        	<property ref="redCrossKnight" name="knight" ></property>
+        </bean>
         <bean id="redCrossKnight" class="spring.chapter_01.service.impl.RedCrossKnight">
         	<constructor-arg ref="quest"></constructor-arg>
-        </bean>  
-        <!-- 构造器注入 redCrossKnight-->
-        <bean id="redKnightAction" class="spring.chapter_01.action.KnightAction">
-        	<constructor-arg ref="redCrossKnight"></constructor-arg>
         </bean>
-         <!-- 构造器注入quest-->
+        <!-- p标签导入 -->
+        <bean id="student" class="spring.chapter_01.bean.Student" p:name="张三" p:birthday="2017/7/7"/>
+        
        <bean id="blackCrossKnight" class="spring.chapter_01.service.impl.BlackCrossKnight">
         	<constructor-arg ref="quest"></constructor-arg>
         </bean>  
-         <!-- 构造器注入 blackCrossKnight-->
-        <bean id="blackKnightAction" class="spring.chapter_01.action.KnightAction">
+        <bean id="blackKnightAction" class="spring.chapter_01.action.ConstructorKnightAction">
         	<constructor-arg ref="blackCrossKnight"></constructor-arg>
         </bean>
         
