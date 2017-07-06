@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/aop 
+           http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+           http://www.springframework.org/schema/tx
+     	   http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+        <!--3.2.1 context命名空间 使用注解装配:
+        	annotation-config虽然使用注解了，但是他只是消除了<property>和<constructor-config>
+        	xml中仍需要使用<bean>元素显式定义bean -->
+     	<context:annotation-config/>
+     	
+     	<!-- 启动需要扫描的包。component-scan标签默认情况下自动扫描指定路径下的包（含所有子包），
+     		将带有@Component、@Repository、@Service、@Controller标签的类自动注册到spring容器。
+     		它除了完成<context:annotation-config/>的工作，还允许spring检测bean定义bean.
+     		这意味着xml中不用显式定义<bean>元素-->
+     	<context:component-scan base-package="spring.chapter_03SpringXML">
+     		<!-- 过滤组件扫描 ： <context:include-filter type="annotation" expression=""/>
+     			<context:exclude-filter type="annotation" expression=""/> -->
+     	</context:component-scan>
+     	
+     	<bean id="kenny" class="spring.chapter_03SpringXML.bean.InstrumentList">
+     		<property name="song" value="启动注解...."></property>
+     	</bean>
+     	
+     	<bean id="knifeJuggler" class="spring.chapter_03SpringXML.bean.KnifeJuggler"/>
+     		
+     	
+</beans>

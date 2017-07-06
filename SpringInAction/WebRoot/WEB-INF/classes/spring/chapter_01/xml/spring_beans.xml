@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/aop 
+           http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+           http://www.springframework.org/schema/tx
+     	   http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+           
+         <!-- 创建quest -->
+        <bean id="quest" class="spring.chapter_01.bean.Quest"/>
+         <!-- 构造器注入quest -->
+        <bean id="redCrossKnight" class="spring.chapter_01.service.impl.RedCrossKnight">
+        	<constructor-arg ref="quest"></constructor-arg>
+        </bean>  
+        <!-- 构造器注入 redCrossKnight-->
+        <bean id="redKnightAction" class="spring.chapter_01.action.KnightAction">
+        	<constructor-arg ref="redCrossKnight"></constructor-arg>
+        </bean>
+         <!-- 构造器注入quest-->
+       <bean id="blackCrossKnight" class="spring.chapter_01.service.impl.BlackCrossKnight">
+        	<constructor-arg ref="quest"></constructor-arg>
+        </bean>  
+         <!-- 构造器注入 blackCrossKnight-->
+        <bean id="blackKnightAction" class="spring.chapter_01.action.KnightAction">
+        	<constructor-arg ref="blackCrossKnight"></constructor-arg>
+        </bean>
+        
+        <!-- 声明一个aop 
+        	advisor只持有一个Pointcut和一个advice，而aspect可以多个pointcut和多个advice
+        	<aop:advisor advice-ref=""/>
+        
+        <bean id="mistrel" class="spring.chapter_01.bean.Mistrel"/>
+        
+        <aop:config>
+        	<aop:aspect ref="mistrel">
+        		<aop:pointcut expression="execution(* spring.chapter_01.service..*.*(..))" id="embark"/>
+        		
+        		<aop:before pointcut-ref="embark" method="singBeforeQuest" />
+        		<aop:after pointcut-ref="embark" method="singAfterQuest" />
+        	</aop:aspect>
+        </aop:config>-->
+</beans>

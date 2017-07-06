@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/aop 
+           http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+           http://www.springframework.org/schema/tx
+     	   http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+        <!--使用注解装配 
+     	<context:annotation-config/>-->
+     	
+     	<!--3.1.1 自动装配 autowiring:
+     		byName缺点是必须保证bean的id与需要注入的bean的属性一致-->
+     	<bean id="kenny" class="spring.chapter_03SpringXML.bean.InstrumentList" autowire="byName">
+     		<property name="song" value="Seawind"></property>
+     	</bean>
+     	
+     	<bean id="instrument" class="spring.chapter_03SpringXML.service.impl.Saxophone" primary="true"></bean>
+     	<bean id="instrument2" class="spring.chapter_03SpringXML.service.impl.Samphone" 
+     			primary="true" autowire-candidate="false"></bean>
+     	
+     	<!-- byType: 如果spring寻找到多个bean而且他们的类型和需要自动装配的类型匹配，就会抛出异常。
+     		 primary：设置primary为true，该bean将会比其他bean优先选择。primary默认为true.
+     		 autowire-candidate:如果希望排除某些bean，也可惜设置autowire-candidate为false.
+     	  -->
+     	<bean id="kenny2" class="spring.chapter_03SpringXML.bean.InstrumentList" autowire="byType">
+     		<property name="song" value="Bytype.."></property>
+     	</bean>
+     	<!-- constructor -->
+     	<bean id="kenny3" class="spring.chapter_03SpringXML.bean.InstrumentList" autowire="constructor">
+     		<property name="song" value="constructor"></property>
+     	</bean>
+     
+     	<bean id="kenny4" class="spring.chapter_03SpringXML.bean.InstrumentList">
+     		<property name="song" value="启动注解："></property>
+     	</bean>
+     	<!-- 
+     		byName:把将要装配的bean属性具有相同ID的其他bean自动装配。如果没有匹配的属性，则不进行装配。
+     		byType:把与bean的属性具有相同类型的其他bean自动装撇到对应的属性中。如果没有与属性匹配的类型，则不装配。
+     		constructor:把与bean的构造器入参具有相同类型的其他bean自动装配到bean构造器的对应入参中。
+     		autodetect：首先尝试使用constructor，如果失败再尝试byType.
+     	 -->
+</beans>
