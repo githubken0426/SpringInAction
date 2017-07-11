@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/aop 
+           http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+           http://www.springframework.org/schema/tx
+     	   http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+           
+     <context:component-scan base-package="aop"></context:component-scan>
+     <!-- 切面类 -->
+     <bean id="audience" class="aop.aspect.Audience" scope="singleton"/>
+     <bean id="arroundAspect" class="aop.aspect.ArroundAspect"/>
+    
+     <aop:config>
+     	<!-- 4.2.1 
+     		pointcut:切入点定义在切面外部，可以被多个切面引用 。多个切面引用同一个pointcut，每个切面都会被同时执行但是目标方法只会执行一次。
+     	-->
+     	<!--execution：*1:任意返回值类型 *2:aop.service包下的任意class *3:aop.service包下的任意class的任意方法 4(..)方法参数可以为0或多个  -->
+     	<aop:pointcut  id="point" expression="execution(* aop.service..*.*(..))"/>
+     	
+     	<!-- 4.3.1 切面1：声明前置和后置通知  -->
+     	<aop:aspect ref="audience">
+     		<!-- join point连接点 -->
+     		<aop:before method="takeSeats" pointcut-ref="point"/>
+     		<aop:before method="turnOffCellPhone" pointcut-ref="point"/>
+     		<aop:after-returning method="applaud" pointcut-ref="point"/>
+     		<aop:after-throwing method="demandRefund" pointcut-ref="point"/>
+     		<aop:after method="theEnd" pointcut-ref="point"/>
+     	</aop:aspect>
+     	<!-- 4.3.2 切面2：声明环绕通知 -->
+     	<aop:aspect ref="arroundAspect">
+     		<aop:around method="watchAround" pointcut-ref="point"/>
+     	</aop:aspect>
+     	
+     	<!-- 4.3.4  切面3：借助引入(introduction)，为现有的对象添加新的功能.
+     		此处为现有对象Performer接口添加一个Constant接口，具体的实现则有default-impl指定。-->
+     	<aop:aspect>
+     		<!-- 具体实现有default-impl或者用委托代理delegate-ref="constant"指定，二选一. -->
+     		<aop:declare-parents types-matching="aop.service.Performer+" 
+     			implement-interface="aop.service.Constant" default-impl="aop.service.ConstantImpl"/>
+     	</aop:aspect>
+     </aop:config>
+     
+     <bean id="constant" class="aop.service.ConstantImpl"/>
+</beans>

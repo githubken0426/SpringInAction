@@ -1,0 +1,24 @@
+package com.gtercn.weixin.api.service.statistic;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.gtercn.weixin.api.dao.ApiCountMapper;
+import com.gtercn.weixin.api.entity.ApiCount;
+
+@Service(value = "apiCountService")
+public class ApiCountServiceImpl implements ApiCountService {
+	@Autowired
+	private ApiCountMapper dao;
+	
+	@Override
+	public ApiCount selectByPrimaryKey(String id) throws Exception {
+		return dao.selectByPrimaryKey(id);
+	}
+
+	@Override
+	public int insert(ApiCount count) {
+		return dao.insert(count);
+	}
+
+}

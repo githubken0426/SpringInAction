@@ -1,0 +1,25 @@
+package com.gtercn.weixin.api.service.partner;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.gtercn.weixin.api.dao.PartnerMapper;
+import com.gtercn.weixin.api.entity.Partner;
+
+@Service(value = "partnerService")
+public class PartnerServiceImpl implements PartnerService {
+	@Autowired
+	private PartnerMapper dao;
+
+	@Override
+	public Partner selectByPrimaryKey(String id) throws Exception {
+		return dao.selectByPrimaryKey(id);
+	}
+
+	@Override
+	public Partner selectByParenterId(String partnerid) {
+		return dao.selectByParenterId(partnerid);
+	}
+
+
+}

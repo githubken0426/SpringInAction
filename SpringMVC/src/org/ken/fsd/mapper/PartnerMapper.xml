@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.ken.fsd.dao.PartnerMapper">
+
+	<sql id="Base_Column_List">
+		id, partnerid, partner_name, serurity_key, valid_from, valid_to, status,
+		delete_flag,
+		createid, create_date, modifyid, modify_date
+	</sql>
+
+	<select id="selectByPrimaryKey" resultType="org.ken.fsd.entity.Partner"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from tb_partner
+		where id = #{id,jdbcType=CHAR}
+	</select>
+
+	<select id="selectByParenterId" resultType="org.ken.fsd.entity.Partner"
+		parameterType="java.lang.String">
+		select id, partnerid, partner_name, serurity_key, status, delete_flag,
+		createid, create_date, modifyid, modify_date,
+		TIMESTAMPDIFF(minute,valid_from,now()) as valid_from,
+		TIMESTAMPDIFF(minute,now(),valid_to) as valid_to
+		from tb_partner
+		where partnerid = #{partnerid,jdbcType=CHAR} and delete_flag=0
+	</select>
+
+	<insert id="insertPartner" parameterType="org.ken.fsd.entity.Partner">
+		insert into tb_partner
+			(id, partnerid, partner_name, serurity_key, status, delete_flag,
+			 create_date, modify_date,valid_from,valid_to,createid) 
+		values
+			(#{id},#{partnerid},#{partnerName},#{serurityKey},'0',0,now(),now(),now(),
+			DATE_ADD(now(),INTERVAL 1 year),#{createid})
+	</insert>
+</mapper>

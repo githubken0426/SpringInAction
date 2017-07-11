@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.ken.fsd.dao.ApimappingMapper" >
+  
+  <sql id="Base_Column_List" >
+    id, apiid, urldown, urlup, apitype, memo, delete_flag, createid, create_date, modifyid, 
+    modify_date
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultType="org.ken.fsd.entity.Apimapping" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_apimapping
+    where id = #{id,jdbcType=CHAR} and delete_flag=0
+  </select>
+  
+  <select id="queryByApiId" resultType="org.ken.fsd.entity.Apimapping" parameterType="java.lang.String" >
+    select <include refid="Base_Column_List" />
+    from tb_apimapping
+    where id = #{apiid,jdbcType=CHAR} and delete_flag=0
+  </select>
+  
+</mapper>

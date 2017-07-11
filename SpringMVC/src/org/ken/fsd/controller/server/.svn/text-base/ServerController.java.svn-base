@@ -1,0 +1,25 @@
+package com.gtercn.weixin.api.controller.server;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.gtercn.weixin.api.view.JsonView;
+
+
+@Controller
+@RequestMapping("/woapi/v1/open")
+public class ServerController {
+
+	@ResponseBody
+	@RequestMapping(value = "/server", method = RequestMethod.POST)
+	public JsonView syncServerTime(HttpServletRequest request) {
+		JsonView jv = new JsonView();
+		jv.getResult().put("server_time", System.currentTimeMillis());
+		return jv;
+	}
+
+}
