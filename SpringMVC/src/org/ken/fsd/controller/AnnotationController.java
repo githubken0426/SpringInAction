@@ -71,8 +71,10 @@ public class AnnotationController {
 	 * @date 2017年7月10日 上午9:10:32
 	 */
 	@RequestMapping(value="/index",method=RequestMethod.GET)
-	public ModelAndView toIndex(HttpServletRequest request,Model model){
-		ModelAndView view =new ModelAndView("index");
+	public ModelAndView toIndex(HttpServletRequest request,Model model,ModelAndView view){
+		 //指定返回的视图(jsp)
+        view.setViewName("index");
+        
 		//1.放在model里 建议使用  
         model.addAttribute("mode", "modeValue");  
         //2.放在request里  
@@ -82,8 +84,6 @@ public class AnnotationController {
         //4.放入session
         HttpSession session=request.getSession();
         session.setAttribute("session", "sessionValue");
-        //指定返回的视图(jsp)
-        view.setViewName("index");
         
         //存list数据
         List<String> list=new ArrayList<String>();
