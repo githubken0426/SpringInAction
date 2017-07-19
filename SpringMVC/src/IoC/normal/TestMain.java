@@ -10,9 +10,9 @@ import IoC.normal.bean.Student;
 
 /**
  * 应用上下文
- * ClassPathXmlAplicationContext
- * FileSystemXmlApplicationContext
- * XmlWebApplicationContext
+ * ClassPathXmlAplicationContext 这个方法是从classpath下加载配置文件
+ * FileSystemXmlApplicationContext 绝对路径加载配置文件
+ * XmlWebApplicationContext 推荐Web项目中使用，获取web应用中的context
  * 
  * @author Administrator
  * 
