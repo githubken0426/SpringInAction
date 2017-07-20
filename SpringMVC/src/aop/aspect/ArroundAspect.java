@@ -16,7 +16,7 @@ public class ArroundAspect {
 		try {
 			System.out.println("ArroundAspect==> 表演之前，请关闭手机！");
 			long start=System.currentTimeMillis();
-			joinPoint.proceed();//调用目标方法
+			joinPoint.proceed();//目标方法可以被调用也可以不被调用，也可以调用多次。时
 			
 			TimeUnit.SECONDS.sleep(1);
 			long end=System.currentTimeMillis();
