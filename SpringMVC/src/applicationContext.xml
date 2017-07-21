@@ -96,8 +96,7 @@
 	</tx:advice>
 	<!-- 切面配置 -->
 	<aop:config>
-		<aop:pointcut expression="execution (* org.ken.fsd.service.*.*(..))"
-			id="services" />
+		<aop:pointcut expression="execution (* org.ken.fsd.service.*.*(..))" id="services" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="services" />
 	</aop:config>
 
