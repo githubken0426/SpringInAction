@@ -24,13 +24,14 @@ public class ArroundAspect {
 	        //用改变后的参数执行目标方法
 	        int returnValue = (int) joinPoint.proceed(args);//目标方法可以被调用也可以不被调用，也可以调用多次。
 			TimeUnit.SECONDS.sleep(1);
+			
 			long end=System.currentTimeMillis();
 //			System.out.println(joinPoint.getClass().getSimpleName());
 			System.out.println("**************ArroundAspect表演结束,持续时间:"+(end-start)+",returnValue="+returnValue);
 			/**
 			 * 目标方法可以多次调用
 			 */
-//			joinPoint.proceed();
+//			joinPoint.proceed(args);
 			return returnValue;
 		} catch (Throwable e) {
 			e.printStackTrace();
