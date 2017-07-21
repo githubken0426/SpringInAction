@@ -14,7 +14,7 @@ import org.aspectj.lang.ProceedingJoinPoint;
 public class ArroundAspect {
 	public int watchAround(ProceedingJoinPoint joinPoint){
 		try {
-			System.out.println("***************************ArroundAspect表演之前，请关闭手机！");
+			System.out.println("**************ArroundAspect表演之前，请关闭手机！");
 			long start=System.currentTimeMillis();
 			
 			Object[] args = joinPoint.getArgs();
@@ -26,7 +26,7 @@ public class ArroundAspect {
 			TimeUnit.SECONDS.sleep(1);
 			long end=System.currentTimeMillis();
 //			System.out.println(joinPoint.getClass().getSimpleName());
-			System.out.println("***************************ArroundAspect表演结束,持续时间:"+(end-start)+",returnValue="+returnValue);
+			System.out.println("**************ArroundAspect表演结束,持续时间:"+(end-start)+",returnValue="+returnValue);
 			/**
 			 * 目标方法可以多次调用
 			 */
