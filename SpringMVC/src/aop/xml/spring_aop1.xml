@@ -16,22 +16,12 @@
            
      <context:component-scan base-package="aop"></context:component-scan>
      <!-- 切面类 -->
-     <bean id="audience" class="aop.aspect.Audience" scope="singleton"/>
+     <bean id="arroundAspect" class="aop.aspect.ArroundAspect"/>
     
      <aop:config>
-     	<!-- 4.2.1 
-     		pointcut:切入点定义在切面外部，可以被多个切面引用 。多个切面引用同一个pointcut，每个切面都会被同时执行但是目标方法只会执行一次。
-     	-->
-     	<!--execution：*1:任意返回值类型 *2:aop.service包下的任意class *3:aop.service包下的任意class的任意方法 4(..)方法参数可以为0或多个  -->
-     	<aop:pointcut  id="point" expression="execution(* aop.service..*.*(..))"/>
-     	<!-- 4.3.1 切面1：声明前置和后置通知  -->
-     	<aop:aspect ref="audience">
-     		<!-- join point连接点 -->
-     		<aop:before method="takeSeats" pointcut-ref="point"/>
-     		<aop:before method="turnOffCellPhone" pointcut-ref="point"/>
-     		<aop:after-returning method="applaud" pointcut-ref="point"/>
-     		<aop:after-throwing method="demandRefund" pointcut-ref="point"/>
-     		<aop:after method="theEnd" pointcut-ref="point"/>
+     <!-- 4.3.2 切面2：声明环绕通知 -->
+     	<aop:aspect ref="arroundAspect">
+     		<aop:around method="watchAround" pointcut-ref="point"/>
      	</aop:aspect>
      </aop:config>
 </beans>
