@@ -16,7 +16,7 @@ import aop.service.Performer;
 public class AopTest1 {
 	public static void main(String[] args) {
 		ApplicationContext context = new ClassPathXmlApplicationContext(
-				"aop/xml/spring_aop.xml");
+				"aop/xml/spring_aop1.xml");
 		Performer juggler = (Performer) context.getBean("performer");
 		juggler.perform(120);
 	}

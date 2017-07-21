@@ -7,18 +7,19 @@ import aop.service.Thinker;
 
 
 /**
- * 测试类
+ * 目标方法执行前
+ * 获取目标方法参数
  * 
  * @author Administrator
  * 
- *         2016-6-14 上午09:54:54
+ * 2016-6-14 上午09:54:54
  */
 public class AopTest0 {
 	public static void main(String[] args) {
 		ApplicationContext context = new ClassPathXmlApplicationContext(
-				"aop/xml/spring_aop3.xml");
+				"aop/xml/spring_aop0.xml");
 		System.out.println("****************************************");
 		Thinker thinker=(Thinker) context.getBean("thinkerImpl");
-		thinker.thinkOfSomething("插入数据!");
+		thinker.thinkOfSomething("Thinking In Java!");
 	}
 }

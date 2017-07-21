@@ -10,7 +10,7 @@ public class Mindreader{
 
 	public void interceptThoughts(String thoughts) {
 		this.thoughts=thoughts;
-		System.out.println("Mindreader==> Intercepting volunter's thoughts: "+thoughts);
+		System.out.println(Mindreader.class.getCanonicalName()+"==> 获取参数值: "+thoughts);
 	}
 
 }
