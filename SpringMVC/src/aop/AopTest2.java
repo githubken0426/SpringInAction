@@ -3,6 +3,7 @@ package aop;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import aop.service.Constant;
 import aop.service.Performer;
 
 
@@ -13,11 +14,16 @@ import aop.service.Performer;
  * 
  *         2016-6-14 上午09:54:54
  */
-public class AopTest {
+public class AopTest2 {
 	public static void main(String[] args) {
 		ApplicationContext context = new ClassPathXmlApplicationContext(
-				"aop/xml/spring_aop.xml");
+				"aop/xml/spring_aop2.xml");
 		Performer juggler = (Performer) context.getBean("performer");
 		juggler.perform(120);
+		/**
+		 * 引入
+		 */
+		/*Constant constant=(Constant) juggler;
+		constant.receiveAward();*/
 	}
 }
