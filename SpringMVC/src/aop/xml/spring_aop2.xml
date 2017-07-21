@@ -15,23 +15,15 @@
            http://www.springframework.org/schema/context/spring-context-3.0.xsd">
            
      <context:component-scan base-package="aop"></context:component-scan>
-     <!-- 切面类 -->
-     <bean id="arroundAspect" class="aop.aspect.ArroundAspect"/>
     
      <aop:config>
-     	<aop:pointcut  id="point" expression="execution(* aop.service..*.*(..))"/>
-     	<!-- 4.3.2 切面2：声明环绕通知 -->
-     	<aop:aspect ref="arroundAspect">
-     		<aop:around method="watchAround" pointcut-ref="point"/>
-     	</aop:aspect>
-     	
      	<!-- 4.3.4  切面3：借助引入(introduction)，为现有的对象添加新的功能.
      		此处为现有对象Performer接口添加一个Constant接口，具体的实现则有default-impl指定。-->
-     	<!--<aop:aspect>
-     		 具体实现有default-impl或者用委托代理delegate-ref="constant"指定，二选一. 
+     	<aop:aspect>
+     		<!-- 具体实现有default-impl或者用委托代理delegate-ref="constant"指定，二选一.--> 
      		<aop:declare-parents types-matching="aop.service.Performer+" 
      			implement-interface="aop.service.Constant" default-impl="aop.service.ConstantImpl"/>
-     	</aop:aspect>-->
+     	</aop:aspect>
      </aop:config>
      
      <bean id="constant" class="aop.service.ConstantImpl"/>

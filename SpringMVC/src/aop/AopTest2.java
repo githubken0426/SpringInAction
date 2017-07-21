@@ -19,11 +19,10 @@ public class AopTest2 {
 		ApplicationContext context = new ClassPathXmlApplicationContext(
 				"aop/xml/spring_aop2.xml");
 		Performer juggler = (Performer) context.getBean("performer");
-		juggler.perform(120);
 		/**
 		 * 引入
 		 */
-		/*Constant constant=(Constant) juggler;
-		constant.receiveAward();*/
+		Constant constant=(Constant) juggler;
+		constant.receiveAward();
 	}
 }
