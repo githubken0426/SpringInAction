@@ -8,11 +8,11 @@ public class RedKnightAction {
 	 */
 	private Knight knight;
 	public RedKnightAction(Knight knight){
+		System.out.println("constructor注入:"+knight.getClass().getSimpleName());
 		this.knight =knight;
 	}
 	
 	public void doSomething(){
-		System.out.println("constructor 注入");
 		knight.embarkOnQuest();
 	}
 }

@@ -7,5 +7,5 @@ package aop.service;
  * 2016-6-12 上午11:57:29
  */
 public interface Performer {
-	public void perform();
+	public int perform(int result);
 }

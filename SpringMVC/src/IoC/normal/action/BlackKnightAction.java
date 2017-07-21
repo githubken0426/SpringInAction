@@ -9,11 +9,11 @@ public class BlackKnightAction {
 	private Knight knight;
 	
 	public void setKnight(Knight knight) {
+		System.out.println("set注入: "+ knight.getClass().getSimpleName());
 		this.knight = knight;
 	}
 
 	public void doSomething(){
-		System.out.println("set 注入");
 		knight.embarkOnQuest();
 	}
 }

@@ -6,9 +6,11 @@ import org.springframework.stereotype.Service;
 public class PerformerImpl implements Performer {
 	
 	@Override
-	public void perform() {
-		System.out.println("目标方法:杂技表演");
-//		throw new UnsupportedOperationException();
+	public int perform(int result) {
+		System.out.println("\n目标方法:杂技表演,返回值result="+result+"\n");
+		if(result<100)
+			throw new UnsupportedOperationException();
+		return result;
 	}
 
 }
