@@ -35,9 +35,9 @@
      		<aop:after-throwing method="demandRefund" pointcut-ref="point"/>
      		<aop:after method="theEnd" pointcut-ref="point"/>
      	</aop:aspect>
-     <!-- 4.3.2 切面2：声明环绕通知 -->
+     <!-- 4.3.2 切面2：声明环绕通知 
      	<aop:aspect ref="arroundAspect">
      		<aop:around method="watchAround" pointcut-ref="point"/>
-     	</aop:aspect>
+     	</aop:aspect>-->
      </aop:config>
 </beans>

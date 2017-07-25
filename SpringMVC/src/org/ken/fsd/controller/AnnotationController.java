@@ -54,11 +54,11 @@ public class AnnotationController {
 	 */
 	@ResponseBody
 	@RequestMapping(value="/pets/find",method=RequestMethod.GET)
-	public JsonObjectView findPetById(@RequestParam int age,HttpServletRequest request) {
+	public JsonObjectView findPetById(@RequestParam String age,HttpServletRequest request) {
 		JsonObjectView jsonResult = new JsonObjectView();
 		
 		String requestAge=request.getParameter("age");
-		System.out.println("age="+age+",requestAge"+requestAge);
+		System.out.println("age="+age+",requestAge:"+requestAge);
 		
 		jsonResult.setResult(age);
 		return jsonResult;
