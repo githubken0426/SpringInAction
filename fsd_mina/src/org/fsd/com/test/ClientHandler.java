@@ -38,7 +38,7 @@ public class ClientHandler extends IoHandlerAdapter {
 
 	@Override
 	public void sessionIdle(IoSession session, IdleStatus status) throws Exception {
-		// TODO Auto-generated method stub
+		LOG.warn("session 空闲");
 		super.sessionIdle(session, status);
 	}
 

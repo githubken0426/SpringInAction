@@ -14,13 +14,10 @@ import org.apache.mina.transport.socket.nio.NioSocketConnector;
 import org.fsd.com.mina.MyHandler;
 
 public class MinaClientSample {
-
-	public static final String IP_ADDR = "127.0.0.1";// 服务器地址
-	public static final int PORT = 3096;// 服务器端口号
 	static String text = null;
 
 	public static void main(String[] args) throws IOException {
-		testSend(IP_ADDR,PORT);
+		testSend(Constant.IP_ADDR,Constant.PORT);
 		// sendToAll();
 	}
 
@@ -34,9 +31,9 @@ public class MinaClientSample {
 		ConnectFuture cf = connector.connect(new InetSocketAddress(ip, port));// 建立连接
 		cf.awaitUninterruptibly();// 等待连接创建完成
 		cf.getSession().write("hello,测试！");// 发送消息
-		cf.getSession().closeOnFlush();
+		/*cf.getSession().closeOnFlush();
 		cf.getSession().getCloseFuture().awaitUninterruptibly();// 等待连接断开
-		connector.dispose();
+		connector.dispose();*/
 	}
 
 	/**

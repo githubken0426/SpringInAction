@@ -22,7 +22,7 @@ public class MyHandler extends IoHandlerAdapter {
 
 	@Override
 	public void exceptionCaught(IoSession session, Throwable cause) throws Exception {
-		// session.closeOnFlush();
+//		session.closeOnFlush();
 		LOG.warn("session occured exception, so close it." + cause.getMessage());
 		LOG.warn(cause.toString());
 	}
@@ -48,10 +48,7 @@ public class MyHandler extends IoHandlerAdapter {
 	@Override
 	public void sessionCreated(IoSession session) throws Exception {
 		LOG.warn("remote client [" + session.getRemoteAddress().toString() + "] connected.");
-
 		sessions.add(session);
-
-		// my
 		Long time = System.currentTimeMillis();
 		session.setAttribute("id", time);
 		sessionsConcurrentHashMap.put(time, session);
@@ -63,22 +60,18 @@ public class MyHandler extends IoHandlerAdapter {
 		LOG.warn("sessionClosed.");
 		session.closeOnFlush();
 		sessions.remove(session);
-
-		// my
 		sessionsConcurrentHashMap.remove(session.getAttribute("id"));
 	}
 
 	@Override
 	public void sessionIdle(IoSession session, IdleStatus status) throws Exception {
 		LOG.warn("session idle");
-		session.closeOnFlush();
-		// LOG.warn("disconnected.");
+//		session.closeOnFlush();
 	}
 
 	@Override
 	public void sessionOpened(IoSession session) throws Exception {
 		LOG.warn("sessionOpened.");
-		//
 		session.getConfig().setIdleTime(IdleStatus.BOTH_IDLE, IDLE);
 	}
 

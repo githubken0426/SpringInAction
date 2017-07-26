@@ -20,7 +20,7 @@ public class ScoketSample {
 	public static final int PORT = 3096;// 服务器端口号
 	static String text = null;
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws UnknownHostException, IOException {
 		socketTest(IP_ADDR, PORT);
 	}
 
