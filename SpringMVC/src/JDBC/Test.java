@@ -31,7 +31,7 @@ public class Test {
 			conn.rollback();
 		} finally {
 			pstmt.close();
-			conn.commit();
+			
 			conn.close();
 		}
 		return 0;

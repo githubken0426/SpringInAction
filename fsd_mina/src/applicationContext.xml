@@ -13,24 +13,28 @@
      						http://www.springframework.org/schema/aop/spring-aop-4.0.xsd 
    							http://www.springframework.org/schema/mvc  
 						    http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
-	
+
 	<!-- 扫描所有包 -->
 	<context:component-scan base-package="org.fsd.com" />
 	<!-- 默认的注解映射的支持 -->
 	<context:annotation-config />
-	<aop:aspectj-autoproxy/>
-	
+	<aop:aspectj-autoproxy />
+
 	<!-- <mvc:resources location="/resources" mapping="/resources/**" /> -->
 	<!-- 对模型视图名称的解析，即在模型视图名称添加前后缀 -->
-    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-    	<!--  JstlView将请求传递给jsp，她还会公布特定的jstl请求属性，使用jstl国际化支持-->
-    	<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
-        <property name="prefix" value="/" />
-        <property name="suffix" value=".jsp" />
-    </bean>
-    
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<!-- JstlView将请求传递给jsp，她还会公布特定的jstl请求属性，使用jstl国际化支持 -->
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
 	<!-- 读取属性文件 -->
-	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" lazy-init="true">
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
+		lazy-init="true">
 		<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
 		<property name="ignoreResourceNotFound" value="true" />
 		<property name="locations">
@@ -39,8 +43,8 @@
 			</list>
 		</property>
 	</bean>
-	
-	<!-- c3p0数据源配置 常用的dbcp、dbcp-->
+
+	<!-- c3p0数据源配置 常用的dbcp、dbcp -->
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
 		<property name="driverClass" value="${datasource.driverClassName}" />
 		<property name="jdbcUrl" value="${datasource.url}" />
@@ -54,12 +58,13 @@
 		<property name="maxStatements" value="${c3p0.maxStatements}" />
 		<property name="maxIdleTimeExcessConnections" value="${c3p0.maxIdleTimeExcessConnections}" />
 	</bean>
-	
+
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="configLocation" value="classpath:mybatis-config.xml" />
 		<property name="dataSource" ref="dataSource" />
 		<property name="mapperLocations" value="classpath*:org/**/*Mapper.xml" />
-		<!-- <property name="annotationClass" value="org.springframework.stereotype.Repository" /> -->
+		<!-- <property name="annotationClass" value="org.springframework.stereotype.Repository" 
+			/> -->
 	</bean>
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg index="0" ref="sqlSessionFactory" />
@@ -91,16 +96,46 @@
 	</tx:advice>
 	<!-- 切面配置 -->
 	<aop:config>
-		<aop:pointcut expression="execution (* org.fsd.com.service.*.*(..))" id="services" />
+		<aop:pointcut expression="execution (* org.fsd.com.service.*.*(..))"
+			id="services" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="services" />
 	</aop:config>
-	<!-- 全局异常配置 
-	<bean id="exceptionResolver" class="org.ken.fsd.exception.MyExceptionHandler" />-->
+	<!-- 全局异常配置 -->
+	<bean id="exceptionResolver" class="org.fsd.com.exception.MyExceptionHandler" />
+	<!-- 针对 json数据 转码 -->
+	<mvc:annotation-driven>
+		<mvc:message-converters register-defaults="true">
+			<bean
+				class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+				<property name="objectMapper">
+					<bean class="com.fasterxml.jackson.databind.ObjectMapper">
+						<!--驼峰转下划线 -->
+						<property name="propertyNamingStrategy">
+							<bean
+								class="com.fasterxml.jackson.databind.PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy" />
+						</property>
+						<!-- ALWAYS默认,NON_DEFAULT属性为默认值不序列化,NON_EMPTY属性为空""或者为 NULL都不序列化,NON_NULL属性为NULL不序列化 -->
+						<property name="serializationInclusion">
+							<value type="com.fasterxml.jackson.annotation.JsonInclude.Include">ALWAYS</value>
+						</property>
+					</bean>
+				</property>
+				<property name="supportedMediaTypes">
+					<list>
+						<value>application/json;charset=UTF-8</value>
+						<value>text/html;charset=UTF-8</value>
+						<value>application/x-www-form-urlencoded</value>
+					</list>
+				</property>
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+
 	<!-- 上传文件的支持 -->
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="maxUploadSize" value="2147483648" />
 		<property name="resolveLazily" value="true" />
 	</bean>
-	
+
 </beans>

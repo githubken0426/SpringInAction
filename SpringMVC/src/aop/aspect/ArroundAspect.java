@@ -31,7 +31,7 @@ public class ArroundAspect {
 			/**
 			 * 目标方法可以多次调用
 			 */
-//			joinPoint.proceed(args);
+			joinPoint.proceed(args);
 			return returnValue;
 		} catch (Throwable e) {
 			e.printStackTrace();

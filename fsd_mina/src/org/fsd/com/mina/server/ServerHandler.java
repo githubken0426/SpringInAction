@@ -1,4 +1,4 @@
-package org.fsd.com.mina;
+package org.fsd.com.mina.server;
 
 import java.net.InetSocketAddress;
 import java.util.Collections;
@@ -11,18 +11,17 @@ import org.apache.mina.core.service.IoHandlerAdapter;
 import org.apache.mina.core.session.IdleStatus;
 import org.apache.mina.core.session.IoSession;
 
-public class MyHandler extends IoHandlerAdapter {
+public class ServerHandler extends IoHandlerAdapter {
 	static {
-		System.out.println(MyHandler.class.getCanonicalName());
+		System.out.println(ServerHandler.class.getCanonicalName());
 	}
 	private final int IDLE = 2;// 单位秒
-	private final Logger LOG = Logger.getLogger(MyHandler.class);
+	private final Logger LOG = Logger.getLogger(ServerHandler.class);
 	public static Set<IoSession> sessions = Collections.synchronizedSet(new HashSet<IoSession>());
 	public static ConcurrentHashMap<Long, IoSession> sessionsConcurrentHashMap = new ConcurrentHashMap<Long, IoSession>();
 
 	@Override
 	public void exceptionCaught(IoSession session, Throwable cause) throws Exception {
-//		session.closeOnFlush();
 		LOG.warn("session occured exception, so close it." + cause.getMessage());
 		LOG.warn(cause.toString());
 	}
@@ -66,7 +65,6 @@ public class MyHandler extends IoHandlerAdapter {
 	@Override
 	public void sessionIdle(IoSession session, IdleStatus status) throws Exception {
 		LOG.warn("session idle");
-//		session.closeOnFlush();
 	}
 
 	@Override

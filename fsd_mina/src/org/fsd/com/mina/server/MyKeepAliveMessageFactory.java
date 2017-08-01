@@ -1,10 +1,8 @@
-package org.fsd.com.mina;
+package org.fsd.com.mina.server;
 
 import org.apache.log4j.Logger;
 import org.apache.mina.core.session.IoSession;
-import org.apache.mina.filter.keepalive.KeepAliveFilter;
 import org.apache.mina.filter.keepalive.KeepAliveMessageFactory;
-import org.apache.mina.filter.keepalive.KeepAliveRequestTimeoutHandler;
 
 public class MyKeepAliveMessageFactory implements  KeepAliveMessageFactory{
 	static {
@@ -47,12 +45,12 @@ public class MyKeepAliveMessageFactory implements  KeepAliveMessageFactory{
 		return false;
 	}
 	
-	private static class KeepAliveRequestTimeoutHandlerImpl implements KeepAliveRequestTimeoutHandler {
+	/*private static class KeepAliveRequestTimeoutHandlerImpl implements KeepAliveRequestTimeoutHandler {
 		private final Logger LOG = Logger.getLogger(KeepAliveRequestTimeoutHandlerImpl.class);
 
 		@Override
 		public void keepAliveRequestTimedOut(KeepAliveFilter filter, IoSession session) throws Exception {
 			LOG.warn("心跳超时！");
 		}
-	}
+	}*/
 }

@@ -1,4 +1,4 @@
-package org.fsd.com.test;
+package org.fsd.com.mina.client;
 
 import org.apache.log4j.Logger;
 import org.apache.mina.core.service.IoHandlerAdapter;

@@ -1,4 +1,4 @@
-package org.fsd.com.test;
+package org.fsd.com.mina.client;
 
 import java.net.InetSocketAddress;
 import java.text.SimpleDateFormat;
@@ -13,7 +13,8 @@ import org.apache.mina.core.session.IoSession;
 import org.apache.mina.filter.codec.ProtocolCodecFilter;
 import org.apache.mina.filter.logging.MdcInjectionFilter;
 import org.apache.mina.transport.socket.nio.NioSocketConnector;
-import org.fsd.com.mina.MyCodeFactory;
+import org.fsd.com.mina.server.ServerCodeFactory;
+import org.fsd.com.test.Constant;
 
 /**
  * mina心跳断线重连
@@ -55,7 +56,7 @@ public class MinaClientReconnector {
 
 		connector.getFilterChain().addLast("mdc", new MdcInjectionFilter());
 		// 加入解码器
-		connector.getFilterChain().addLast("codec", new ProtocolCodecFilter(new MyCodeFactory()));
+		connector.getFilterChain().addLast("codec", new ProtocolCodecFilter(new ServerCodeFactory()));
 
 		connector.getSessionConfig().setReceiveBufferSize(10240); // 设置接收缓冲区的大小
 		connector.getSessionConfig().setSendBufferSize(10240);// 设置输出缓冲区的大小

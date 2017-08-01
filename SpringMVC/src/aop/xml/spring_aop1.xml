@@ -25,19 +25,19 @@
      	-->
      	<!--execution：*1:任意返回值类型 *2:aop.service包下的任意class *3:aop.service包下的任意class的任意方法 4(..)方法参数可以为0或多个  -->
      	<aop:pointcut  id="point" expression="execution(* aop.service..*.*(..))"/>
-     	
-     	<!-- 4.3.1 切面1：声明前置和后置通知  -->
+     	<!-- join point连接点 -->
+     	<!-- 4.3.1 切面1：声明前置和后置通知  
      	<aop:aspect ref="audience">
-     		<!-- join point连接点 -->
+     		
      		<aop:before method="takeSeats" pointcut-ref="point"/>
      		<aop:before method="turnOffCellPhone" pointcut-ref="point"/>
      		<aop:after-returning method="applaud" pointcut-ref="point"/>
      		<aop:after-throwing method="demandRefund" pointcut-ref="point"/>
      		<aop:after method="theEnd" pointcut-ref="point"/>
-     	</aop:aspect>
-     <!-- 4.3.2 切面2：声明环绕通知 
+     	</aop:aspect>-->
+     <!-- 4.3.2 切面2：声明环绕通知 -->
      	<aop:aspect ref="arroundAspect">
      		<aop:around method="watchAround" pointcut-ref="point"/>
-     	</aop:aspect>-->
+     	</aop:aspect>
      </aop:config>
 </beans>

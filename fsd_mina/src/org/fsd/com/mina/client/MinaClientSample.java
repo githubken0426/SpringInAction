@@ -1,4 +1,4 @@
-package org.fsd.com.test;
+package org.fsd.com.mina.client;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -11,7 +11,8 @@ import org.apache.mina.filter.codec.ProtocolCodecFilter;
 import org.apache.mina.filter.codec.textline.TextLineCodecFactory;
 import org.apache.mina.filter.logging.LoggingFilter;
 import org.apache.mina.transport.socket.nio.NioSocketConnector;
-import org.fsd.com.mina.MyHandler;
+import org.fsd.com.mina.server.ServerHandler;
+import org.fsd.com.test.Constant;
 
 public class MinaClientSample {
 	static String text = null;
@@ -43,8 +44,8 @@ public class MinaClientSample {
 	 *             2017年7月25日 下午3:10:47
 	 */
 	public static void sendToAll() {
-		System.out.println(MyHandler.sessions.size());
-		for (Iterator<?> iterator = MyHandler.sessions.iterator(); iterator.hasNext();) {
+		System.out.println(ServerHandler.sessions.size());
+		for (Iterator<?> iterator = ServerHandler.sessions.iterator(); iterator.hasNext();) {
 			IoSession session = (IoSession) iterator.next();
 			session.write("发送系统消息");
 		}

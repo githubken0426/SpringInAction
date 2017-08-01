@@ -18,6 +18,6 @@ public class AopTest1 {
 		ApplicationContext context = new ClassPathXmlApplicationContext(
 				"aop/xml/spring_aop1.xml");
 		Performer juggler = (Performer) context.getBean("performer");
-		juggler.perform(120);
+		juggler.perform(20);
 	}
 }

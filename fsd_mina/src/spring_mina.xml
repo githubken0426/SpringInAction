@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans   
   http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
-	<bean id="serverHandler" class="org.fsd.com.mina.MyHandler" />
+	<bean id="serverHandler" class="org.fsd.com.mina.server.ServerHandler" />
 	<bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">
 		<property name="customEditors">
 			<map>
@@ -44,14 +44,14 @@
 	<bean id="loggingFilter" class="org.apache.mina.filter.logging.LoggingFilter" />
 	<bean id="codecFilter" class="org.apache.mina.filter.codec.ProtocolCodecFilter">
 		<constructor-arg>
-			<bean class="org.fsd.com.mina.MyCodeFactory"></bean>
+			<bean class="org.fsd.com.mina.server.ServerCodeFactory"></bean>
 		</constructor-arg>
 	</bean>
 
 	<!-- 心跳检测 -->
 	<bean id="keepAliveFilter" class="org.apache.mina.filter.keepalive.KeepAliveFilter">
 		<constructor-arg>
-			<bean class="org.fsd.com.mina.MyKeepAliveMessageFactory"></bean>
+			<bean class="org.fsd.com.mina.server.MyKeepAliveMessageFactory"></bean>
 		</constructor-arg>
 		<constructor-arg type="org.apache.mina.core.session.IdleStatus" value="BOTH_IDLE">
 		</constructor-arg>

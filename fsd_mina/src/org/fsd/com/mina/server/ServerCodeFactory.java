@@ -1,4 +1,4 @@
-package org.fsd.com.mina;
+package org.fsd.com.mina.server;
 
 import java.nio.charset.Charset;
 
@@ -10,19 +10,19 @@ import org.apache.mina.filter.codec.textline.LineDelimiter;
 import org.apache.mina.filter.codec.textline.TextLineDecoder;
 import org.apache.mina.filter.codec.textline.TextLineEncoder;
 
-public class MyCodeFactory implements ProtocolCodecFactory {
+public class ServerCodeFactory implements ProtocolCodecFactory {
 	static {
-		System.out.println(MyCodeFactory.class.getCanonicalName());
+		System.out.println(ServerCodeFactory.class.getCanonicalName());
 	}
 
 	private final TextLineEncoder encoder;
 	private final TextLineDecoder decoder;
 
-	public MyCodeFactory() {
+	public ServerCodeFactory() {
 		this(Charset.forName("utf-8"));
 	}
 
-	public MyCodeFactory(Charset charset) {
+	public ServerCodeFactory(Charset charset) {
 		encoder = new TextLineEncoder(charset, LineDelimiter.UNIX);
 		decoder = new TextLineDecoder(charset, LineDelimiter.AUTO);
 	}
