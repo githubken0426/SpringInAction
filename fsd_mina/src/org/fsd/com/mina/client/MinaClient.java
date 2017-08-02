@@ -14,8 +14,13 @@ import org.fsd.com.MinaProperties;
 import org.fsd.com.mina.server.ServerHandler;
 
 public class MinaClient {
-
-	public static <T> void testSend(T t) {
+	/**
+	 * 向服务端发送消息
+	 * @param t
+	 * @throws 
+	 * @date 2017年8月2日 上午11:45:53
+	 */
+	public static <T> void sendToServer(T t) {
 		// 创建客户端连接器.
 		NioSocketConnector connector = new NioSocketConnector();
 		connector.getFilterChain().addLast("logger", new LoggingFilter());
@@ -33,7 +38,16 @@ public class MinaClient {
 		 * connector.dispose();
 		 */
 	}
-
+	/**
+	 * 服务器发送消息到客户
+	 * @param t
+	 * @param session
+	 * @throws 
+	 * @date 2017年8月2日 上午11:48:24
+	 */
+	public static <T> void receiveFromServer(T t,IoSession session) {
+		
+	}
 	/**
 	 * 模拟群发，在服务端和客户端都启动之后，可以运行此方法群发消息
 	 * 

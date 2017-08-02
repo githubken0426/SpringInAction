@@ -18,7 +18,7 @@ import org.fsd.com.test.Constant;
 
 /**
  * mina心跳断线重连
- * 
+ * @Test测试用
  * @ClassName: MInaClientReconnector
  * @Description:
  * @author ken

@@ -27,7 +27,7 @@ public class PartnerController {
 		Partner partner =partnerService.selectByPrimaryKey(primaryKey);
 		view.setResult(partner);
 		JSONObject json =JSONObject.fromObject(view);
-		MinaClient.testSend(json);
+		MinaClient.sendToServer(json);
 		return json;
 	}
 }
