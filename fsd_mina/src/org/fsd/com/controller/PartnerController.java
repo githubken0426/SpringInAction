@@ -3,7 +3,7 @@ package org.fsd.com.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import org.fsd.com.entity.Partner;
-import org.fsd.com.mina.client.MinaClientSample;
+import org.fsd.com.mina.client.MinaClient;
 import org.fsd.com.service.PartnerService;
 import org.fsd.com.view.JsonObjectView;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ public class PartnerController {
 		Partner partner =partnerService.selectByPrimaryKey(primaryKey);
 		view.setResult(partner);
 		JSONObject json =JSONObject.fromObject(view);
-		MinaClientSample.testSend(json);
+		MinaClient.testSend(json);
 		return json;
 	}
 }

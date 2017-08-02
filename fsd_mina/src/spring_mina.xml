@@ -51,7 +51,7 @@
 	<!-- 心跳检测 -->
 	<bean id="keepAliveFilter" class="org.apache.mina.filter.keepalive.KeepAliveFilter">
 		<constructor-arg>
-			<bean class="org.fsd.com.mina.server.MyKeepAliveMessageFactory"></bean>
+			<bean class="org.fsd.com.mina.server.KeepAliveMessageFactoryImpl"></bean>
 		</constructor-arg>
 		<constructor-arg type="org.apache.mina.core.session.IdleStatus" value="BOTH_IDLE">
 		</constructor-arg>
@@ -59,6 +59,7 @@
 		<property name="requestInterval" value="5" />
 		<!--心跳超时时间，默认30s -->
 		<property name="requestTimeout" value="10" />
+		<!--是否回发,默认false-->
 		<property name="forwardEvent" value="true" />
 	</bean>
 

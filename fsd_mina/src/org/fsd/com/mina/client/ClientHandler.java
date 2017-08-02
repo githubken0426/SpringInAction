@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 import org.apache.mina.core.service.IoHandlerAdapter;
 import org.apache.mina.core.session.IdleStatus;
 import org.apache.mina.core.session.IoSession;
+import org.fsd.com.MinaProperties;
 
 public class ClientHandler extends IoHandlerAdapter {
 	private final Logger LOG = Logger.getLogger(ClientHandler.class);
@@ -11,10 +12,10 @@ public class ClientHandler extends IoHandlerAdapter {
 	@Override
 	public void messageReceived(IoSession session, Object message) throws Exception {
 		LOG.warn("客户端收到消息：" + message);
-		if (message.toString().equals("1111")) {
+		if (message.toString().equals(MinaProperties.HEARTBEAT_REQUEST)) {
 			// 收到心跳包
 			LOG.warn("收到心跳包");
-			session.write("1112");
+			session.write(MinaProperties.HEARTBEAT_RESPONSE);
 		}
 	}
 

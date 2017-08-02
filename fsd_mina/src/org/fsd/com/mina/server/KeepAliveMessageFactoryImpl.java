@@ -3,35 +3,39 @@ package org.fsd.com.mina.server;
 import org.apache.log4j.Logger;
 import org.apache.mina.core.session.IoSession;
 import org.apache.mina.filter.keepalive.KeepAliveMessageFactory;
-
-public class MyKeepAliveMessageFactory implements  KeepAliveMessageFactory{
+import org.fsd.com.MinaProperties;
+/**
+ * 定义心跳包的内容
+ * @ClassName: KeepAliveMessageFactoryImpl 
+ * @Description: 
+ * @author ken 
+ * @date 2017年8月2日 上午10:20:06
+ */
+public class KeepAliveMessageFactoryImpl implements  KeepAliveMessageFactory{
 	static {
-		System.out.println(MyKeepAliveMessageFactory.class.getCanonicalName());
+		System.out.println(KeepAliveMessageFactoryImpl.class.getCanonicalName());
 	}
-	private final Logger LOG = Logger.getLogger(MyKeepAliveMessageFactory.class);
-
-	/** 心跳包内容 */
-	private static final String HEARTBEATREQUEST = "1111";
-	private static final String HEARTBEATRESPONSE = "1112";
+	private final Logger LOG = Logger.getLogger(KeepAliveMessageFactoryImpl.class);
 
 	public Object getRequest(IoSession session) {
-		LOG.warn("请求预设信息: " + HEARTBEATREQUEST);
-		return HEARTBEATREQUEST;
+		LOG.warn("响应预设信息: " + MinaProperties.HEARTBEAT_REQUEST);
+		/** 返回预设语句 */
+		return MinaProperties.HEARTBEAT_REQUEST;
 	}
 	/**
 	 * 根据心跳请求request 反回一个心跳反馈消息
 	 */
 	public Object getResponse(IoSession session, Object request) {
-		LOG.warn("响应预设信息: " + HEARTBEATRESPONSE);
+		LOG.warn("响应预设信息: " + MinaProperties.HEARTBEAT_RESPONSE);
 		/** 返回预设语句 */
-		return HEARTBEATRESPONSE;
+		return MinaProperties.HEARTBEAT_RESPONSE;
 	}
 	/**
 	 * 判断是否心跳请求包, 是返回true
 	 */
 	public boolean isRequest(IoSession session, Object message) {
 		LOG.warn("请求心跳包信息: " + message);
-		if (message.equals(HEARTBEATREQUEST))
+		if (message.equals(MinaProperties.HEARTBEAT_REQUEST))
 			return true;
 		return false;
 	}
@@ -40,11 +44,14 @@ public class MyKeepAliveMessageFactory implements  KeepAliveMessageFactory{
 	 */
 	public boolean isResponse(IoSession session, Object message) {
 		LOG.warn("响应心跳包信息: " + message);
-		if (message.equals(HEARTBEATRESPONSE))
+		if (message.equals(MinaProperties.HEARTBEAT_RESPONSE))
 			return true;
 		return false;
 	}
 	
+	/**
+	 * 定义超时后的处理方式
+	 */
 	/*private static class KeepAliveRequestTimeoutHandlerImpl implements KeepAliveRequestTimeoutHandler {
 		private final Logger LOG = Logger.getLogger(KeepAliveRequestTimeoutHandlerImpl.class);
 

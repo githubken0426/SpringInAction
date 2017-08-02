@@ -23,4 +23,8 @@ public final class MinaProperties {
 
 	private static final String PORT = API_PROPERTIES.getValue("server_port");
 	public static final Integer API_PORT = StringUtils.isNotBlank(PORT) ? Integer.valueOf(PORT) : 0;
+	
+	public static final String HEARTBEAT_REQUEST = API_PROPERTIES.getValue("server_ip");
+	
+	public static final String HEARTBEAT_RESPONSE = API_PROPERTIES.getValue("server_ip");
 }

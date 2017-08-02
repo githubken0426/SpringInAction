@@ -13,21 +13,32 @@ import org.apache.mina.transport.socket.nio.NioSocketConnector;
 import org.fsd.com.MinaProperties;
 import org.fsd.com.mina.server.ServerHandler;
 
-public class MinaClientSample {
+public class MinaClient {
 
 	public static <T> void testSend(T t) {
 		// 创建客户端连接器.
-		NioSocketConnector connector = new NioSocketConnector();
-		connector.getFilterChain().addLast("logger", new LoggingFilter());
-		connector.getFilterChain().addLast("codec",
-				new ProtocolCodecFilter(new TextLineCodecFactory(Charset.forName("utf-8")))); // 设置编码过滤器
-		connector.setHandler(new ClientHandler());// 设置事件处理器
-		ConnectFuture cf = connector.connect(new InetSocketAddress(MinaProperties.API_SERVER, MinaProperties.API_PORT));// 建立连接
-		cf.awaitUninterruptibly();// 等待连接创建完成
-		cf.getSession().write(t);// 发送消息
-		/*cf.getSession().closeOnFlush();
-		cf.getSession().getCloseFuture().awaitUninterruptibly();// 等待连接断开
-		connector.dispose();*/
+		NioSocketConnector connector = null;
+		IoSession session = null;
+		while (true) {
+			connector = new NioSocketConnector();
+			connector.getFilterChain().addLast("logger", new LoggingFilter());
+			connector.getFilterChain().addLast("codec",
+					new ProtocolCodecFilter(new TextLineCodecFactory(Charset.forName("utf-8")))); // 设置编码过滤器
+			connector.setHandler(new ClientHandler());// 设置事件处理器
+			ConnectFuture cf = connector
+					.connect(new InetSocketAddress(MinaProperties.API_SERVER, MinaProperties.API_PORT));// 建立连接
+			cf.awaitUninterruptibly();// 等待连接创建完成
+			session = cf.getSession();
+			if (session.isConnected())
+				break;
+		}
+		if (t != null)
+			session.write(t);// 发送消息
+		/*
+		 * cf.getSession().closeOnFlush();
+		 * cf.getSession().getCloseFuture().awaitUninterruptibly();// 等待连接断开
+		 * connector.dispose();
+		 */
 	}
 
 	/**
