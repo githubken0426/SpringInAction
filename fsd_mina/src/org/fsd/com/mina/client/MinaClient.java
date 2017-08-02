@@ -17,21 +17,14 @@ public class MinaClient {
 
 	public static <T> void testSend(T t) {
 		// 创建客户端连接器.
-		NioSocketConnector connector = null;
-		IoSession session = null;
-		while (true) {
-			connector = new NioSocketConnector();
-			connector.getFilterChain().addLast("logger", new LoggingFilter());
-			connector.getFilterChain().addLast("codec",
-					new ProtocolCodecFilter(new TextLineCodecFactory(Charset.forName("utf-8")))); // 设置编码过滤器
-			connector.setHandler(new ClientHandler());// 设置事件处理器
-			ConnectFuture cf = connector
-					.connect(new InetSocketAddress(MinaProperties.API_SERVER, MinaProperties.API_PORT));// 建立连接
-			cf.awaitUninterruptibly();// 等待连接创建完成
-			session = cf.getSession();
-			if (session.isConnected())
-				break;
-		}
+		NioSocketConnector connector = new NioSocketConnector();
+		connector.getFilterChain().addLast("logger", new LoggingFilter());
+		connector.getFilterChain().addLast("codec",
+				new ProtocolCodecFilter(new TextLineCodecFactory(Charset.forName("utf-8")))); // 设置编码过滤器
+		connector.setHandler(new ClientHandler());// 设置事件处理器
+		ConnectFuture cf = connector.connect(new InetSocketAddress(MinaProperties.SERVER_IP, MinaProperties.SERVER_PORT));// 建立连接
+		cf.awaitUninterruptibly();// 等待连接创建完成
+		IoSession session = cf.getSession();
 		if (t != null)
 			session.write(t);// 发送消息
 		/*
@@ -47,11 +40,11 @@ public class MinaClient {
 	 * @throws @date
 	 *             2017年7月25日 下午3:10:47
 	 */
-	public static void sendToAll() {
+	public static<T> void sendToAll(T t) {
 		System.out.println(ServerHandler.sessions.size());
 		for (Iterator<?> iterator = ServerHandler.sessions.iterator(); iterator.hasNext();) {
 			IoSession session = (IoSession) iterator.next();
-			session.write("发送系统消息");
+			session.write(t);
 		}
 	}
 }

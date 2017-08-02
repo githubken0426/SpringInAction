@@ -11,10 +11,10 @@ public class ClientHandler extends IoHandlerAdapter {
 
 	@Override
 	public void messageReceived(IoSession session, Object message) throws Exception {
-		LOG.warn("客户端收到消息：" + message);
+		LOG.warn("ClientHandler客户端收到消息：" + message);
 		if (message.toString().equals(MinaProperties.HEARTBEAT_REQUEST)) {
 			// 收到心跳包
-			LOG.warn("收到心跳包");
+			LOG.warn("ClientHandler收到心跳包");
 			session.write(MinaProperties.HEARTBEAT_RESPONSE);
 		}
 	}

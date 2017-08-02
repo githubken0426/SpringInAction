@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 import org.apache.mina.core.service.IoHandlerAdapter;
 import org.apache.mina.core.session.IdleStatus;
 import org.apache.mina.core.session.IoSession;
+import org.fsd.com.MinaProperties;
 
 import net.sf.json.JSONObject;
 
@@ -17,7 +18,6 @@ public class ServerHandler extends IoHandlerAdapter {
 	static {
 		System.out.println(ServerHandler.class.getCanonicalName());
 	}
-	private final int IDLE = 2;// 单位秒
 	private final Logger LOG = Logger.getLogger(ServerHandler.class);
 	public static Set<IoSession> sessions = Collections.synchronizedSet(new HashSet<IoSession>());
 	public static ConcurrentHashMap<Long, IoSession> sessionsConcurrentHashMap = new ConcurrentHashMap<Long, IoSession>();
@@ -30,18 +30,18 @@ public class ServerHandler extends IoHandlerAdapter {
 		LOG.warn("remote client [" + session.getRemoteAddress().toString() + "] connected.");
 		sessions.add(session);
 		Long time = System.currentTimeMillis();
-		session.setAttribute("id", time);
+		session.setAttribute("session_id", time);
 		sessionsConcurrentHashMap.put(time, session);
 
 	}
 
 	/**
-	 * 当连接打开是调用
+	 * 当连接打开时调用
 	 */
 	@Override
 	public void sessionOpened(IoSession session) throws Exception {
 		LOG.warn("sessionOpened.");
-		session.getConfig().setIdleTime(IdleStatus.BOTH_IDLE, IDLE);
+		session.getConfig().setIdleTime(IdleStatus.BOTH_IDLE, MinaProperties.CHANNEL_IDLE);
 	}
 
 	/**
@@ -59,10 +59,7 @@ public class ServerHandler extends IoHandlerAdapter {
 	public void messageReceived(IoSession session, Object message) throws Exception {
 		JSONObject json = JSONObject.fromObject(message.toString());
 		LOG.warn("客户端" + ((InetSocketAddress) session.getRemoteAddress()).getAddress().getHostAddress() + "连接成功！");
-
-		session.setAttribute("type", json);
-		String remoteAddress = ((InetSocketAddress) session.getRemoteAddress()).getAddress().getHostAddress();
-		session.setAttribute("ip", remoteAddress);
+		session.setAttribute("message", json);
 		LOG.warn(json);
 		/**
 		 * 返回客户端信息
@@ -97,7 +94,7 @@ public class ServerHandler extends IoHandlerAdapter {
 		LOG.warn("sessionClosed.");
 		session.closeOnFlush();
 		sessions.remove(session);
-		sessionsConcurrentHashMap.remove(session.getAttribute("id"));
+		sessionsConcurrentHashMap.remove(session.getAttribute("session_id"));
 	}
 
 }

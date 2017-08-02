@@ -6,6 +6,7 @@ import org.apache.mina.filter.keepalive.KeepAliveMessageFactory;
 import org.fsd.com.MinaProperties;
 /**
  * 定义心跳包的内容
+ * 目的:读写通道不出现空闲,
  * @ClassName: KeepAliveMessageFactoryImpl 
  * @Description: 
  * @author ken 
