@@ -16,18 +16,35 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import net.sf.json.JSONObject;
 
 @Controller
-@RequestMapping(value = "/v1/partner")
-public class PartnerController {
+@RequestMapping(value = "/v1/send")
+public class SendController {
 	@Autowired
 	private PartnerService partnerService;
-	
+	/**
+	 * 
+	 * @param primaryKey
+	 * @param request
+	 * @param view
+	 * @return
+	 * @throws 
+	 * @date 2017年8月2日 下午1:15:29
+	 */
 	@ResponseBody
-	@RequestMapping(value = "/{primaryKey}", method = RequestMethod.GET)
-	public JSONObject login(@PathVariable String primaryKey, HttpServletRequest request,JsonObjectView view) {
+	@RequestMapping(value = "/server/{primaryKey}", method = RequestMethod.GET)
+	public JSONObject clientSendToServer(@PathVariable String primaryKey, HttpServletRequest request,JsonObjectView view) {
 		Partner partner =partnerService.selectByPrimaryKey(primaryKey);
 		view.setResult(partner);
 		JSONObject json =JSONObject.fromObject(view);
-		MinaClient.sendToServer(json);
+		MinaClient.clientSendToServer(json);
+		return json;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/client/{name}", method = RequestMethod.GET)
+	public JSONObject serverSendToClient(@PathVariable String name, HttpServletRequest request,JsonObjectView view) {
+		view.setResult(name);
+		JSONObject json =JSONObject.fromObject(view);
+		MinaClient.serverSendToClient(json);
 		return json;
 	}
 }

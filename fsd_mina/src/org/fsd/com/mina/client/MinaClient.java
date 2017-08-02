@@ -20,7 +20,7 @@ public class MinaClient {
 	 * @throws 
 	 * @date 2017年8月2日 上午11:45:53
 	 */
-	public static <T> void sendToServer(T t) {
+	public static <T> void clientSendToServer(T t) {
 		// 创建客户端连接器.
 		NioSocketConnector connector = new NioSocketConnector();
 		connector.getFilterChain().addLast("logger", new LoggingFilter());
@@ -38,23 +38,14 @@ public class MinaClient {
 		 * connector.dispose();
 		 */
 	}
+	
 	/**
-	 * 服务器发送消息到客户
-	 * @param t
-	 * @param session
-	 * @throws 
-	 * @date 2017年8月2日 上午11:48:24
-	 */
-	public static <T> void receiveFromServer(T t,IoSession session) {
-		
-	}
-	/**
-	 * 模拟群发，在服务端和客户端都启动之后，可以运行此方法群发消息
+	 * 服务器发送消息到客户(群发)
 	 * 
 	 * @throws @date
-	 *             2017年7月25日 下午3:10:47
+	 *    2017年7月25日 下午3:10:47
 	 */
-	public static<T> void sendToAll(T t) {
+	public static<T> void serverSendToClient(T t) {
 		System.out.println(ServerHandler.sessions.size());
 		for (Iterator<?> iterator = ServerHandler.sessions.iterator(); iterator.hasNext();) {
 			IoSession session = (IoSession) iterator.next();

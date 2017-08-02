@@ -21,19 +21,16 @@ public class ClientHandler extends IoHandlerAdapter {
 
 	@Override
 	public void messageSent(IoSession session, Object message) throws Exception {
-		// TODO Auto-generated method stub
 		super.messageSent(session, message);
 	}
 
 	@Override
 	public void sessionClosed(IoSession session) throws Exception {
-		// TODO Auto-generated method stub
 		super.sessionClosed(session);
 	}
 
 	@Override
 	public void sessionCreated(IoSession session) throws Exception {
-		// TODO Auto-generated method stub
 		super.sessionCreated(session);
 	}
 
@@ -45,7 +42,6 @@ public class ClientHandler extends IoHandlerAdapter {
 
 	@Override
 	public void sessionOpened(IoSession session) throws Exception {
-		// TODO Auto-generated method stub
 		super.sessionOpened(session);
 	}
 }
