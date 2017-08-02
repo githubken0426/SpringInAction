@@ -15,9 +15,9 @@ public class Partner {
     private String status;
     private String deleteFlag;
     private String createid;
-    private Date createDate;
+    private String createDate;
     private String modifyid;
-    private Date modifyDate;
+    private String modifyDate;
     private int isExpiry;
 
     public String getId() {
@@ -92,11 +92,11 @@ public class Partner {
         this.createid = createid == null ? null : createid.trim();
     }
 
-    public Date getCreateDate() {
+    public String getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Date createDate) {
+    public void setCreateDate(String createDate) {
         this.createDate = createDate;
     }
 
@@ -108,11 +108,11 @@ public class Partner {
         this.modifyid = modifyid == null ? null : modifyid.trim();
     }
 
-    public Date getModifyDate() {
+    public String getModifyDate() {
         return modifyDate;
     }
 
-    public void setModifyDate(Date modifyDate) {
+    public void setModifyDate(String modifyDate) {
         this.modifyDate = modifyDate;
     }
 

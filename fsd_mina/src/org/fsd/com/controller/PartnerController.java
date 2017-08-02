@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import net.sf.json.JSONObject;
+
 @Controller
 @RequestMapping(value = "/v1/partner")
 public class PartnerController {
@@ -21,10 +23,11 @@ public class PartnerController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/{primaryKey}", method = RequestMethod.GET)
-	public JsonObjectView login(@PathVariable String primaryKey, HttpServletRequest request, JsonObjectView view) {
-		MinaClientSample.testSend("127.0.0.1",3096);
+	public JSONObject login(@PathVariable String primaryKey, HttpServletRequest request,JsonObjectView view) {
 		Partner partner =partnerService.selectByPrimaryKey(primaryKey);
 		view.setResult(partner);
-		return view;
+		JSONObject json =JSONObject.fromObject(view);
+		MinaClientSample.testSend(json);
+		return json;
 	}
 }
