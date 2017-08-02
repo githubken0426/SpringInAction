@@ -38,7 +38,15 @@ public class SendController {
 		MinaClient.clientSendToServer(json);
 		return json;
 	}
-	
+	/**
+	 * labview调用此链接，链接内调用serverSendToClient()方法，发送数据到客户端
+	 * @param name
+	 * @param request
+	 * @param view
+	 * @return
+	 * @throws 
+	 * @date 2017年8月2日 下午5:39:26
+	 */
 	@ResponseBody
 	@RequestMapping(value = "/client/{name}", method = RequestMethod.GET)
 	public JSONObject serverSendToClient(@PathVariable String name, HttpServletRequest request,JsonObjectView view) {
