@@ -16,9 +16,10 @@ import org.fsd.com.mina.server.ServerHandler;
 public class MinaClient {
 	/**
 	 * 向服务端发送消息
+	 * 
 	 * @param t
-	 * @throws 
-	 * @date 2017年8月2日 上午11:45:53
+	 * @throws @date
+	 *             2017年8月2日 上午11:45:53
 	 */
 	public static <T> void clientSendToServer(T t) {
 		// 创建客户端连接器.
@@ -27,7 +28,8 @@ public class MinaClient {
 		connector.getFilterChain().addLast("codec",
 				new ProtocolCodecFilter(new TextLineCodecFactory(Charset.forName("utf-8")))); // 设置编码过滤器
 		connector.setHandler(new ClientHandler());// 设置事件处理器
-		ConnectFuture cf = connector.connect(new InetSocketAddress(MinaProperties.SERVER_IP, MinaProperties.SERVER_PORT));// 建立连接
+		ConnectFuture cf = connector
+				.connect(new InetSocketAddress(MinaProperties.SERVER_IP, MinaProperties.SERVER_PORT));// 建立连接
 		cf.awaitUninterruptibly();// 等待连接创建完成
 		IoSession session = cf.getSession();
 		if (t != null)
@@ -38,16 +40,17 @@ public class MinaClient {
 		 * connector.dispose();
 		 */
 	}
-	
+
 	/**
 	 * 服务器发送消息到客户(群发)
 	 * 
 	 * @throws @date
-	 *    2017年7月25日 下午3:10:47
+	 *             2017年7月25日 下午3:10:47
 	 */
-	public static<T> void serverSendToClient(T t) {
+	public static <T> void serverSendToClient(T t) {
 		System.out.println(ServerHandler.sessions.size());
-		for (Iterator<?> iterator = ServerHandler.sessions.iterator(); iterator.hasNext();) {
+		Iterator<?> iterator = ServerHandler.sessions.iterator();
+		while (iterator.hasNext()) {
 			IoSession session = (IoSession) iterator.next();
 			session.write(t);
 		}

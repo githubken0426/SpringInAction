@@ -27,8 +27,4 @@ public final class MinaProperties {
 	public static final String HEARTBEAT_REQUEST = MINA_PROPERTIES.getValue("heartbeat_request");
 	//心跳包相应信息
 	public static final String HEARTBEAT_RESPONSE = MINA_PROPERTIES.getValue("heartbeat_response");
-	//空闲时间
-	public static final String IDLE = MINA_PROPERTIES.getValue("channel_idle");
-	public static final Integer CHANNEL_IDLE = StringUtils.isNotBlank(IDLE) ? Integer.valueOf(IDLE) : 0;
-	
 }

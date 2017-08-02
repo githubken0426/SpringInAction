@@ -10,7 +10,6 @@ import org.apache.log4j.Logger;
 import org.apache.mina.core.service.IoHandlerAdapter;
 import org.apache.mina.core.session.IdleStatus;
 import org.apache.mina.core.session.IoSession;
-import org.fsd.com.MinaProperties;
 
 import net.sf.json.JSONObject;
 
@@ -41,7 +40,8 @@ public class ServerHandler extends IoHandlerAdapter {
 	@Override
 	public void sessionOpened(IoSession session) throws Exception {
 		LOG.warn("sessionOpened.");
-		session.getConfig().setIdleTime(IdleStatus.BOTH_IDLE, MinaProperties.CHANNEL_IDLE);
+		//配置文件已经设置了超时时间，此处设置不再起作用
+//		session.getConfig().setIdleTime(IdleStatus.BOTH_IDLE, 1);
 	}
 
 	/**
