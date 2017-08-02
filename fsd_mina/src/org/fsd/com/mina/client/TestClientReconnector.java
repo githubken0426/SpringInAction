@@ -24,8 +24,8 @@ import org.fsd.com.test.Constant;
  * @author ken
  * @date 2017年7月25日 下午5:20:09
  */
-public class MinaClientReconnector {
-	static final Logger LOG = Logger.getLogger(MinaClientReconnector.class);
+public class TestClientReconnector {
+	static final Logger LOG = Logger.getLogger(TestClientReconnector.class);
 	private static IoSession session = null;
 	private static NioSocketConnector connector = null;
 
