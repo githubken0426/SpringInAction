@@ -1,11 +1,10 @@
 package org.fsd.com.entity;
 
-import java.util.Date;
-
 import org.springframework.stereotype.Component;
 
 @Component
 public class Partner {
+	
     private String id;
     private String partnerid;
     private String partnerName;
